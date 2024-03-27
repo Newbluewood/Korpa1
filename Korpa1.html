@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korpa Primer1</title>
+    <link rel="icon" href="./Images/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <link rel="stylesheet" href="./Korpa1.css">
+    <link rel="stylesheet" href="./proizvodiKorpa1.css">
+</head>
+<body>
+    <header>
+        <div id="logo"> LOGO OO</div>
+        <div id="linkovi" >   
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+        </div>
+        <div id="ikonica">
+            <img src="./Images/shopping_cart_FILL0_wght400_GRAD0_opsz24.svg" alt="korpa">
+            <div id="stanjeKorpe" data-broj="0">0</div>
+        </div> 
+        <div>10</div>
+        <div>2</div>    
+    </header>
+
+    <div id="izborPrikaza"></div>
+
+    <div id="PrikazProizvoda"></div>
+    <div id="PrikazKorpe" data-status="off">
+        <div class="inner">
+       
+        </div>
+    </div>
+
+    <footer>
+        &copy; oo &trade; All rights reserved 2024.
+        <div> This page is educational only for code practice !!! </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="./Korpa1.js"></script>
+    <script>
+      window.addEventListener( 'DOMContentLoaded', function () {
+        let elms = document.getElementsByClassName( 'splide' );
+        for ( let i = 0; i < elms.length; i++ ) {
+        new Splide( elms[ i ],{
+		   
+        } ).mount();
+}
+  } );
+      </script>
+</body>
+</html>

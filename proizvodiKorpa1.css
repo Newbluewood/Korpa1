@@ -1,0 +1,135 @@
+#jakne, #dukserice, #majce, #pantalone {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin: 2rem;
+}
+#izborPrikaza {
+    display: flex;
+    gap: 1rem;
+    margin: 4rem 0 0 0;
+}
+[type="checkbox"] {
+    cursor: pointer;
+}
+.okvirKartice {
+    border: 0.01rem solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+#divImg {
+    max-width: 60%;
+}
+.dugmeDodajUKorpu {
+    padding: 0.3rem;
+    background-color: rgb(76, 76, 76);
+    color: aliceblue;
+    cursor: pointer;
+    font-style: oblique;
+
+}
+.dugmeDodajUKorpu:hover {
+    background-color: rgb(173, 173, 173);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-weight: 600;
+}
+.splide__slide img {
+    width: 100%;
+    height: 100%;
+}
+#ikonica {
+    cursor: pointer;
+}
+#PrikazKorpe {
+    transition: grid-template-rows 0.5s;
+    border-radius: 1rem;
+   /* background-color: rgba(112, 112, 112,0.3); */
+    background-color: rgba(255, 255, 255, 0.93);
+    position: absolute;
+    position: fixed;
+    top: 6vh;
+    right: 1vw;
+    z-index: 1;
+   /* display: none; */
+   overflow: hidden;
+
+}
+.inner {
+    overflow: hidden;
+}
+
+[data-status="off"] {
+    display: grid;
+    grid-template-columns: 1fr ;
+    grid-template-rows: 0;
+
+
+    
+}
+
+[data-status="on"] {
+    border: 1px solid black;
+    display: inline-grid;
+    grid-template-rows: auto;
+
+
+   
+}
+  .proizvodiukorpi {
+    display: grid;
+    grid-template-columns: 3fr 12fr 2fr 1fr 2fr 1fr;
+    border: 0.0625rem solid rgb(132, 107, 107);
+    border-radius: 0.7rem;
+    margin: 1rem;
+ 
+ }
+ .proizvodiukorpi>div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.0625rem solid rgb(139, 137, 137);
+    border-radius: 0.7rem;
+    margin: 0.3rem;
+ }
+ .proizvodiukorpi img {
+    max-height: 4rem;
+ }
+ .dugme_obrisi {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    cursor: pointer;
+ }
+ .brojac {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+ }
+ .oduzmi {
+    font-size: 1.2rem;
+ }
+
+ .brojac:hover {
+   color: white;
+ }
+
+ [data-kolicine], [data-kolicine] button {
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    color: rgb(255, 98, 0);
+ }
+
