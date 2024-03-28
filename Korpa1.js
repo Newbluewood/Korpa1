@@ -73,21 +73,21 @@ function napraviListuKorpe (barkod, product_image, product_name, product_price){
     karticaProizvodaUkorpi.classList.add("proizvodiukorpi")
     karticaProizvodaUkorpi.innerHTML = `
     <div>
-       <img src="${product_image}" alt="${product_name}" />
+        <img src="${product_image}" alt="${product_name}" />
     </div>
     <div>
-       <h3>${product_name}</h3>
+        <h3>${product_name}</h3>
     </div>
     <div>
-       <p>${product_price} $</p>
+        <p>${product_price} $</p>
     </div>
-     <div class="brojac">
-        <div><button class="brojac dodaj">+</button></div>
-       <div data-kolicine="${barkod}">${KORPA[barkod].kolicina}</div>
-        <div><button class="brojac oduzmi">-</button></div>
+    <div class="brojac">
+        <div><button class="brojac dodaj" data-bk="${barkod}">+</button></div>
+        <div data-kolicine="${barkod}">${KORPA[barkod].kolicina}</div>
+        <div><button class="brojac oduzmi" data-bk="${barkod}">-</button></div>
     </div>
     <div>
-    <p data-ukupno="${barkod}">${product_price} $</p>
+        <p data-ukupno="${barkod}">${product_price} $</p>
     </div>
     `
     // ovde je ubacena opcija da se ukloni/obrise proizvod iz korpe
@@ -111,9 +111,10 @@ function napraviListuKorpe (barkod, product_image, product_name, product_price){
             }
         }
 
-        })
+    })
+
     return karticaProizvodaUkorpi
-   }
+}
 
 function KarticaProizvoda (barkod,product_image,product_image2,product_name,product_price,product_type) {
     // osmislicemo kako izgleda ta kartica, odnosno sadrzaj prikaza
@@ -147,71 +148,68 @@ function KarticaProizvoda (barkod,product_image,product_image2,product_name,prod
     // dugme ubacujemo u okvir kartice
     okvirKartice.append(dugmeDodajUKorpu)
     // kreiramo dogadjaj za klik na dugme unosa u korpu
-    dugmeDodajUKorpu.addEventListener("click", (e) => {
-        // povezujemo se sa 'indikatorom'- ikonica/stanje,  koji ce pratiti stanje korpe
+    dugmeDodajUKorpu.addEventListener("click", (e) =>   {
+             // povezujemo se sa 'indikatorom'- ikonica/stanje,  koji ce pratiti stanje korpe
         const indikator = document.querySelector("#stanjeKorpe")
         let ima = indikator.getAttribute("data-broj") // ovaj atribut ce se dinamicki menjati, u njega cemo upisivati trenutna stanja
-        console.log(ima)
-    if (ima <= 0) {
-        indikator.style.display = "block"
-        indikator.style.color = "red"
-    }
-        // proveravamo sadrzaj liste KORPA, kreiramo(if undefined) novo-dodate proizvode, a sadrzaj korpe upisujemo (append) novo-dodati proizvod
-        // ovako radimo za sada. Ovaj korak nam sluzi da pratimo stanje korpe i menjamo kolicine
-    const sadrzajKorpe = document.querySelector(".inner")
-    const barkod = e.target.getAttribute("data-barkod")
-    const pruk = PROIZVODI[barkod]
+        if (ima <= 0) {
+            indikator.style.display = "block"
+            indikator.style.color = "red"
+        }
+            // proveravamo sadrzaj liste KORPA, kreiramo(if undefined) novo-dodate proizvode, a sadrzaj korpe upisujemo (append) novo-dodati proizvod
+            // ovako radimo za sada. Ovaj korak nam sluzi da pratimo stanje korpe i menjamo kolicine
+        const sadrzajKorpe = document.querySelector(".inner")
+        const barkod = e.target.getAttribute("data-barkod")
+        const pruk = PROIZVODI[barkod]
 
-    if (KORPA[barkod] === undefined){
-        KORPA[barkod] = {
-            "product_name": PROIZVODI[barkod].product_name,
-            "product_price": PROIZVODI[barkod].product_price,
-            "product_image": PROIZVODI[barkod].product_name,
-            "kolicina": 1
-        } 
+        if (KORPA[barkod] === undefined){
+            KORPA[barkod] = {
+                "product_name": PROIZVODI[barkod].product_name,
+                "product_price": PROIZVODI[barkod].product_price,
+                "product_image": PROIZVODI[barkod].product_name,
+                "kolicina": 1
+            } 
         
-        // gre, pa jos malo goree..iznad f-je KarticaProizvoda, cemo napraviti funfciju za kreiranje liste korpe ==> napraviListuKorpe
-        const karticaProizvodaUkorpi = napraviListuKorpe (barkod,pruk.product_image,pruk.product_name,pruk.product_price)
-        sadrzajKorpe.append(karticaProizvodaUkorpi)
+            // gre, pa jos malo goree..iznad f-je KarticaProizvoda, cemo napraviti funfciju za kreiranje liste korpe ==> napraviListuKorpe
+            const karticaProizvodaUkorpi = napraviListuKorpe (barkod,pruk.product_image,pruk.product_name,pruk.product_price)
+            sadrzajKorpe.append(karticaProizvodaUkorpi)
        
-    } else {
-       // ako postoji u korpi i KORPI korigujemo kolicine i ukupnu cenu za unetu kolicinu. Za sada samo dodajem, nema smanjivanja :), resicemo i to kasnije.
-        KORPA[barkod].kolicina +=1
-        const zbirKolicine = document.querySelector(`[data-kolicine="${barkod}"]`)
-        zbirKolicine.innerText = KORPA[barkod].kolicina 
-        const ukupnaCena = KORPA[barkod].kolicina *Number(pruk.product_price)
-        const zbirCene = document.querySelector(`[data-ukupno="${barkod}"]`)
-        zbirCene.innerText = ukupnaCena.toFixed(2) + " $"
+        } else {
+            // ako postoji u korpi i KORPI korigujemo kolicine i ukupnu cenu za unetu kolicinu. Za sada samo dodajem, nema smanjivanja :), resicemo i to kasnije.
+            KORPA[barkod].kolicina +=1
+            const zbirKolicine = document.querySelector(`[data-kolicine="${barkod}"]`)
+            zbirKolicine.innerText = KORPA[barkod].kolicina 
+            const ukupnaCena = KORPA[barkod].kolicina *Number(pruk.product_price)
+            const zbirCene = document.querySelector(`[data-ukupno="${barkod}"]`)
+            zbirCene.innerText = ukupnaCena.toFixed(2) + " $"
+
         }
 
-
         // provera stanja/2 i promena ispisa u indikatoru
-    ima = indikator.getAttribute("data-broj")
-    console.log(ima)
-    let n = 0
-    for(let k in KORPA){
-    if(KORPA[k] === undefined){
-       let broj = 0
-       continue
-    } else{ broj = KORPA[k].kolicina }
-      broj = KORPA[k].kolicina
-      console.log(KORPA[k])
-      n += broj
-    }
+        ima = indikator.getAttribute("data-broj")
+        let n = 0
+        for(let k in KORPA){
+            if(KORPA[k] === undefined){
+                let broj = 0
+                continue
+            } else { broj = KORPA[k].kolicina }
 
-    indikator.innerText=n 
-    const sada = indikator.setAttribute("data-broj", n)
+            broj = KORPA[k].kolicina
+            n += broj
+        }
+
+        indikator.innerText=n 
+        const sada = indikator.setAttribute("data-broj", n)
      
-
     })
- 
     return okvirKartice
 }
 
-        // on/off prikaz zadrzaja korpe
+
+// on/off prikaz zadrzaja korpe
 const prikaziKorpu = document.querySelector("#ikonica") // indikator - pored ikonice korpe / #ikonica sadrzi i ikonicu <img> i brojac <div> ili <span>, sve jedno
 const korpa = document.querySelector("#PrikazKorpe")
-       // "klik"-om na ovaj prostor menjamo 'status' prikaza, upisan u atribut . podrazumevano da je prikaz korpe u startu sakriven
+// "klik"-om na ovaj prostor menjamo 'status' prikaza, upisan u atribut . podrazumevano da je prikaz korpe u startu sakriven
 prikaziKorpu.addEventListener("click", () => {
     const prikazKorpe = korpa.getAttribute("data-status") 
     const podrazumevano = "off"
@@ -222,11 +220,10 @@ prikaziKorpu.addEventListener("click", () => {
     } 
 })
 
+
 const ListaProizvoda = document.querySelector("#PrikazProizvoda")
 
-const RAZNI = []
-//console.log(RAZNI)
-
+const RAZNI = [] // ovde vodimo evidenciju o tipovima proizvoda
 
 window.addEventListener("DOMContentLoaded", () => {
     for (let barkod in PROIZVODI) {
@@ -247,11 +244,11 @@ window.addEventListener("DOMContentLoaded", () => {
             ListaProizvoda.append(Tpr)   
         } 
         
-         const staJeTo = KarticaNtogProizvoda.getAttribute('name')
+        const staJeTo = KarticaNtogProizvoda.getAttribute('name')
         // staJeTo.append(KarticaNtogProizvoda)  ovako nece da radi,  kaze: staJeTo.append is not a function ! ??
         // ---
         // morao sam ovako,'rucno'! Za sada, dok ne vidim sta je u pitanju...
-       if (staJeTo === "jakne"){
+        if (staJeTo === "jakne"){
 
             jakne.append(KarticaNtogProizvoda)
         } else if (staJeTo === "dukserice"){
@@ -263,12 +260,12 @@ window.addEventListener("DOMContentLoaded", () => {
         } else if (staJeTo === "pantalone") {
 
             pantalone.append(KarticaNtogProizvoda)
-        }
-        
+        }   
        
     }
-        // prikazuje tipove proizvoda sa checkbox-om, kako bi smo "filtrilali" prikaz odredjenog tipa
-        // prvo prodjemo kroz niz i sortiramo checkbox po tipu, ispisujemo/prikazujemo svaki - append.
+
+    // prikazuje tipove proizvoda sa checkbox-om, kako bi smo "filtrilali" prikaz odredjenog tipa
+    // prvo prodjemo kroz niz i sortiramo checkbox po tipu, ispisujemo/prikazujemo svaki - append.
     for (let tipO of RAZNI) {
         const izborPrikaza = document.querySelector("#izborPrikaza") // hardkodovano u HTML
         const tipDugmeta = document.createElement("input")
@@ -280,10 +277,11 @@ window.addEventListener("DOMContentLoaded", () => {
         const razmak = document.createElement("br")
         izborPrikaza.append(tipDugmeta,ispis,razmak)
     }
-        // provera koji je tip cekiran , prikaz/sakrivanje
+
+    // provera koji je tip cekiran , prikaz/sakrivanje
     const IzabraniZaPrikaz = document.querySelectorAll("[data-tipP]")
-    for (let izabrano of IzabraniZaPrikaz ) {
-        izabrano.addEventListener("click", (e) => {
+        for (let izabrano of IzabraniZaPrikaz ) {
+            izabrano.addEventListener("click", (e) => {
             const stanje = e.target
             if (stanje.checked){
                 const tipJe = e.target.getAttribute("data-tipP")
@@ -293,14 +291,42 @@ window.addEventListener("DOMContentLoaded", () => {
             } else { 
                 const tipJe = e.target.getAttribute("data-tipP")
                 const dohvati = document.getElementById(tipJe)
-                dohvati.style.display = "none"
-                
+                dohvati.style.display = "none"       
             }
-        })
-        
-    }
 
+        })       
+    }
+    //  :) :) :)   ovo je vrh !   25 linija koda i !!! parent, element, sibiling od... nod... od sta god :))))
+    document.addEventListener("click", (e) => {
+        const indikator = document.querySelector("#stanjeKorpe")
+        let ima = Number(indikator.getAttribute("data-broj"))
+        const barkod = e.target.getAttribute("data-bk")
+        if (e.target.classList.contains("dodaj")) {
+            KORPA[barkod].kolicina +=1
+            ima += 1
+            const novo = indikator.setAttribute("data-broj", ima)
+            indikator.innerText = ima
+            const zbirKolicine = document.querySelector(`[data-kolicine="${barkod}"]`)
+            zbirKolicine.innerText = KORPA[barkod].kolicina
+            const oduzmi = e.target.parentElement.nextElementSibling.nextElementSibling.firstChild.getAttribute("disabled")
+            //console.log(oduzmi)
+            if (oduzmi === "on"){
+                e.target.parentElement.nextElementSibling.nextElementSibling.firstChild.removeAttribute("disabled")
+            }
+        } else if(e.target.classList.contains("oduzmi")){
+            KORPA[barkod].kolicina -=1
+            ima -= 1
+            const novo = indikator.setAttribute("data-broj", ima)
+            indikator.innerText = ima
+            const zbirKolicine = document.querySelector(`[data-kolicine="${barkod}"]`)
+            zbirKolicine.innerText = KORPA[barkod].kolicina 
+            if(KORPA[barkod].kolicina === 0){
+                e.target.setAttribute("disabled", "on")
+            }
+        }
+
+       
+        
+    })     
  
 })
-
-
