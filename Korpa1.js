@@ -320,7 +320,7 @@ window.addEventListener("DOMContentLoaded", () => {
             indikator.innerText = ima
             const zbirKolicine = document.querySelector(`[data-kolicine="${barkod}"]`)
             zbirKolicine.innerText = KORPA[barkod].kolicina 
-            if(KORPA[barkod].kolicina === 0){
+            if(KORPA[barkod].kolicina === 1){
                 e.target.setAttribute("disabled", "on")
             }
         }
