@@ -313,6 +313,11 @@ window.addEventListener("DOMContentLoaded", () => {
             if (oduzmi === "on"){
                 e.target.parentElement.nextElementSibling.nextElementSibling.firstChild.removeAttribute("disabled")
             }
+
+            const ukupnaCena = KORPA[barkod].kolicina *Number(PROIZVODI[barkod].product_price)  // ovo je nedostajalo da radi suma cena
+            const zbirCene = document.querySelector(`[data-ukupno="${barkod}"]`)
+            zbirCene.innerText = ukupnaCena.toFixed(2) + " $"
+            
         } else if(e.target.classList.contains("oduzmi")){
             KORPA[barkod].kolicina -=1
             ima -= 1
@@ -323,6 +328,10 @@ window.addEventListener("DOMContentLoaded", () => {
             if(KORPA[barkod].kolicina === 1){
                 e.target.setAttribute("disabled", "on")
             }
+
+            const ukupnaCena = KORPA[barkod].kolicina *Number(PROIZVODI[barkod].product_price)  // ovo je nedostajalo da radi suma cena
+            const zbirCene = document.querySelector(`[data-ukupno="${barkod}"]`)
+            zbirCene.innerText = ukupnaCena.toFixed(2) + " $"
         }
 
        
